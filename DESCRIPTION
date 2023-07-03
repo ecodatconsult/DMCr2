@@ -1,0 +1,29 @@
+Package: DMCr2
+Type: Package
+Title: Data Management of Camera Trap Data
+Version: 0.1.0
+Authors@R: c(person("Anja","Müller-Meißner", role = c("aut","cre"), email = "anja.mueller-meissner@forst.bwl.de")
+            , person("Max","Kröschel", role = "aut"), person("Alexander", "Milles", role = "aut"))
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: Rree or Open Source Software
+Encoding: UTF-8
+LazyData: true
+Imports:
+	data.table,
+	DBI,
+	dplyr,
+	magick,
+	raster,
+	reticulate,
+	rgdal,
+	rpostgis,
+	RPostgreSQL,
+	rworldmap,
+	sf,
+	stringi,
+	stringr,
+	svDialogs
+Depends: 
+    R (>= 2.10)
+RoxygenNote: 7.2.3

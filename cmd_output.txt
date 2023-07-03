@@ -1,0 +1,11 @@
+
+N:\Projekte\Forschungscluster_1768\02_Projektmodule\01_Kamerafallenthemen\FVA_Fotofallendatenbank\R\R-Paket\DMCr>call conda activate MegaDetector-GPU 
+
+(MegaDetector-GPU) N:\Projekte\Forschungscluster_1768\02_Projektmodule\01_Kamerafallenthemen\FVA_Fotofallendatenbank\R\R-Paket\DMCr>N:
+
+(MegaDetector-GPU) N:\Projekte\Forschungscluster_1768\02_Projektmodule\01_Kamerafallenthemen\FVA_Fotofallendatenbank\R\R-Paket\DMCr>cd "N:/Projekte/Forschungscluster_1768/02_Projektmodule/01_Kamerafallenthemen/AutomatisierteKlassifizierung/Daten/Projekt/Session" 
+
+(MegaDetector-GPU) N:\Projekte\Forschungscluster_1768\02_Projektmodule\01_Kamerafallenthemen\AutomatisierteKlassifizierung\Daten\Projekt\Session>set PYTHONPATH=N:\Projekte\Fotofallenmonitoring\Programme\Automatisierte_Klassifizierung\MegaDetector\CameraTraps;N:\Projekte\Fotofallenmonitoring\Programme\Automatisierte_Klassifizierung\MegaDetector\ai4eutils 
+
+(MegaDetector-GPU) N:\Projekte\Forschungscluster_1768\02_Projektmodule\01_Kamerafallenthemen\AutomatisierteKlassifizierung\Daten\Projekt\Session>python N:\Projekte\Fotofallenmonitoring\Programme\Automatisierte_Klassifizierung\MegaDetector\CameraTraps\detection\run_tf_detector_batch.py N:\Projekte\Fotofallenmonitoring\Programme\Automatisierte_Klassifizierung\MegaDetector\md_v4.1.0.pb Fotos .\MegaDetector_output.json --recursive 
+Batchvorgang abbrechen (J/N)? 
