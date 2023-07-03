@@ -10,14 +10,14 @@
 
 processImportTables <- function(daten_ereignis_list) {
 
-    lapply(daten_ereignis_list, function(data){
+    table_import_list <- lapply(daten_ereignis_list, function(data){
 
     names(data)[stringr::str_detect(names(data),"AUSSGR")] <- "AUSSGRßE"
 
     table_import <- data[, .(
       "s_foto_id" = s_foto_id
       ,"s_ereignis_id" = E_ID
-      ,"pfad" = PFAD #only column that exists in ereignis but not in daten #ALEX: kommt bei beiden Datensätzen vor
+      ,"pfad" = PFAD #only column that exists in ereignis but not in daten
       ,"ordner" = ORDNER
       ,"bildname" = BILDNAME
       ,"datum" = DATUM
@@ -76,6 +76,13 @@ processImportTables <- function(daten_ereignis_list) {
                  (int_cols_with_na) := lapply(.SD, function(x) ifelse(is.na(x), 0, x)),
                  .SDcols = int_cols_with_na]
 
+
+
     return(table_import)
   })
+
+  # TODO: clarify if pfad needs to be removed or not
+  if("daten" %in% names(table_import_list)) table_import_list$daten <- table_import_list$daten[,-(3)]
+
+  return(table_import_list)
 }
