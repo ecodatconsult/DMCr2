@@ -11,7 +11,7 @@ uploadImport <- function(){
   require(RPostgreSQL)
   require(DBI)
 
-  dbConnection(type = "write")
+  con <- dbConnection()
 
   rm(daten,ereignis)
 
