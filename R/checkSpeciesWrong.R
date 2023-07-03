@@ -1,31 +1,20 @@
-checkSpeciesWrong <- function(){
-
-  require(svDialogs)
-  require(stringi)
-  require(dplyr)
-
-  if(!exists("ereignis_import") & !exists("daten_import")){
-    stop(print("Benötigte Daten 'ereignis_import' und/oder 'daten_import' fehlen. Führe die Funktion import() aus."))
-  }
-
+checkSpeciesWrong <- function(importTables_list, speciesDB_vector){
+  # session_path12 <- function() "C:/Fotofallen-App/Beispieldatensatz"
+  # importTables_list = session_path12() %>%
+  #   DMCr2::importTables() %>%
+  #   DMCr2::processImportTables()
   #names in ereignis_import
-  tierarten <- sort(c(ereignis_import$tierart_1,ereignis_import$tierart_2))
 
-  #wrong names in ereignis_import = not in speciesList
-  falsche_tierarten <- tierarten[!is.element(tierarten,speciesDB_vector)]
+  c(importTables_list$ereignis$tierart_1,
+    importTables_list$ereignis$tierart__2) %>%
+    sort() %>%
+    data.frame() %>%
+    setNames("alt") %>%
+    group_by(alt) %>%
+    summarise(anzahl = n()) %>%
+    filter(!alt %in% speciesDB_vector) %>%
+    mutate(korrigiert = NA)
 
-  #delete ""
-  falsche_tierarten <- falsche_tierarten[falsche_tierarten != ""]
-
-  #data table
-  if(length(falsche_tierarten)>0){
-    falsche_tierarten_all <- data.frame("alt" = falsche_tierarten)
-    falsche_tierarten_df <- falsche_tierarten_all %>% count(alt)
-    falsche_tierarten_df$korrigiert <- NA
-
-    assign("falsche_tierarten_df",falsche_tierarten_df,envir = .GlobalEnv)
-
-    rm(falsche_tierarten_all, species, falsche_tierarten, tierarten)
-  }
+    return(falsche_tierarten_df)
 }
 
