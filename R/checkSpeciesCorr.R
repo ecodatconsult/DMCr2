@@ -1,35 +1,17 @@
-checkSpeciesCorr <- function(falsche_tierarten_df){
+checkSpeciesCorr <- function(importTables_list, falsche_tierarten_df){
 
-  lapply(importTables_list, function(x){
+  ft_df <- data.table::as.data.table(falsche_tierarten_df)
 
+  lapply(importTables_list, function(dt){
+    dt <- data.table::merge.data.table(dt, ft_df, by.y = "alt", by.x = "tierart_1", all.x = TRUE)
+    dt[, tierart_1 := ifelse(is.na(korrigiert), tierart_1, korrigiert)]
+    dt[, c("korrigiert", "anzahl"):= NULL]
+
+    dt <- data.table::merge.data.table(dt, ft_df, by.y = "alt", by.x = "tierart_2", all.x = TRUE)
+    dt[, tierart_2 := ifelse(is.na(korrigiert), tierart_2, korrigiert)]
+    dt[, c("korrigiert", "anzahl"):= NULL]
+
+    return(dt)
   })
-  importTables_list %>%
-    mutate(tierart)
-
-  require(stringi)
-  #data table
-  falsche_tierarten <- falsche_tierarten_df$alt
-
-  #correct wrong species names
-  if(length(falsche_tierarten[!is.na(falsche_tierarten)])>0){
-
-    for(falsche_tierart in falsche_tierarten){
-
-      #input correct name
-      korrigierte_tierart <- falsche_tierarten_df$korrigiert[falsche_tierarten_df$alt == falsche_tierart]
-
-      #correct the name in ereignis_import
-      ereignis_import$tierart_1[ereignis_import$tierart_1 == falsche_tierart] <- korrigierte_tierart
-      ereignis_import$tierart_2[ereignis_import$tierart_2 == falsche_tierart] <- korrigierte_tierart
-      assign("ereignis_import",ereignis_import,envir = .GlobalEnv)
-
-      #correct the name in daten_import
-      daten_import$tierart_1[daten_import$tierart_1 == falsche_tierart] <- korrigierte_tierart
-      daten_import$tierart_2[daten_import$tierart_2 == falsche_tierart] <- korrigierte_tierart
-      assign("daten_import",daten_import,envir = .GlobalEnv)
-
-    }
-  }
-
 }
 
