@@ -1,7 +1,12 @@
-checkSpeciesCorr <- function(){
+checkSpeciesCorr <- function(falsche_tierarten_df){
+
+  lapply(importTables_list, function(x){
+
+  })
+  importTables_list %>%
+    mutate(tierart)
 
   require(stringi)
-
   #data table
   falsche_tierarten <- falsche_tierarten_df$alt
 

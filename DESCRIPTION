@@ -10,20 +10,21 @@ License: Rree or Open Source Software
 Encoding: UTF-8
 LazyData: true
 Imports:
-	data.table,
-	DBI,
-	dplyr,
-	magick,
-	raster,
-	reticulate,
-	rgdal,
-	rpostgis,
-	RPostgreSQL,
-	rworldmap,
-	sf,
-	stringi,
-	stringr,
-	svDialogs
+    data.table,
+    DBI,
+    dplyr,
+    magick,
+    magrittr,
+    raster,
+    reticulate,
+    rgdal,
+    rpostgis,
+    RPostgreSQL,
+    rworldmap,
+    sf,
+    stringi,
+    stringr,
+    svDialogs
 Depends: 
     R (>= 2.10)
 RoxygenNote: 7.2.3

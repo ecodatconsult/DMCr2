@@ -4,9 +4,8 @@ checkSpeciesWrong <- function(importTables_list, speciesDB_vector){
   #   DMCr2::importTables() %>%
   #   DMCr2::processImportTables()
   #names in ereignis_import
-
-  c(importTables_list$ereignis$tierart_1,
-    importTables_list$ereignis$tierart__2) %>%
+  falsche_tierarten_df <- c(importTables_list$ereignis$tierart_1,
+                            importTables_list$ereignis$tierart__2) %>%
     sort() %>%
     data.frame() %>%
     setNames("alt") %>%
