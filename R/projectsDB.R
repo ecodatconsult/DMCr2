@@ -1,15 +1,9 @@
 projectsDB <- function(){
+  con <- dbConnection()
 
-  require(RPostgreSQL)
-  require(stringi)
-
-  dbConnection(type = "read")
-
-  #projects
-  df_projects <- dbGetQuery(con,"SELECT * FROM fotofallen.projekte")
-  projects <- sort(unique(df_projects$projekt_name))
-
-  assign("projectsDB_vector",projects, envir = .GlobalEnv)
+  df_projects <- RPostgreSQL::dbGetQuery(con,"SELECT distinct projekt_name FROM fotofallen.projekte ORDER BY projekt_name")
 
   dbDisconnect(con)
+
+  return(df_projects$projekt_name)
 }
