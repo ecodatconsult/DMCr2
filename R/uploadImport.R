@@ -10,6 +10,7 @@ uploadImport <- function(importTables_list){
 
   con <- dbConnection()
   #TODO remove folder and standort_id_folder earlier?!
+  daten_import <- importTables_list$daten
   daten_import[, c("folder", "standort_id_folder") := NULL,]
 
   RPostgreSQL::dbWriteTable(con, c("import", "bilder"),

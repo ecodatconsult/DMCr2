@@ -15,13 +15,14 @@ extract <- function(data, species, project){
   require(DBI)
   require(stringi)
 
-  dbConnection(type = "read")
+  con <- dbConnection()
 
   # data frames
-  df_ereignisse <- dbGetQuery(con,"SELECT standort_id, tierart_1 FROM fotofallen.ereignisse")
-  df_bilder <- dbGetQuery(con,"SELECT standort_id, tierart_1 FROM fotofallen.bilder")
-  df_standorte <- dbGetQuery(con,"SELECT standort_id, projekt_id FROM fotofallen.fotofallen_standorte")
-  df_projects <- dbGetQuery(con,"SELECT * FROM fotofallen.projekte")
+  #TODO: this query should be optimized by already applying filters
+  df_ereignisse <- RPostgreSQL::dbGetQuery(con,"SELECT standort_id, tierart_1 FROM fotofallen.ereignisse")
+  df_bilder <- RPostgreSQL::dbGetQuery(con,"SELECT standort_id, tierart_1 FROM fotofallen.bilder")
+  df_standorte <- RPostgreSQL::dbGetQuery(con,"SELECT standort_id, projekt_id FROM fotofallen.fotofallen_standorte")
+  df_projects <- RPostgreSQL::dbGetQuery(con,"SELECT * FROM fotofallen.projekte")
 
   # Standorte, wenn NICHT alle Arten
   if(species != "alle Arten"){
