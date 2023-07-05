@@ -6,55 +6,40 @@
 #' @examples
 #'
 # Fotofallen_Standorte
-uploadImport <- function(){
-
-  require(RPostgreSQL)
-  require(DBI)
+uploadImport <- function(importTables_list){
 
   con <- dbConnection()
+  #TODO remove folder and standort_id_folder earlier?!
+  daten_import[, c("folder", "standort_id_folder") := NULL,]
 
-  rm(daten,ereignis)
+  RPostgreSQL::dbWriteTable(con, c("import", "bilder"),
+               daten_import, row.names = FALSE, append = TRUE)
 
-    daten <- c("daten","ereignis")
+  # lösche Daten, die doppelt importiert wurden
+  #TODO: check this SQL-code
+  RPostgreSQL::dbSendQuery(con, "DELETE FROM import.bilder
+  WHERE bild_id IN (SELECT bild_id
+  FROM (SELECT bild_id,
+  ROW_NUMBER() OVER (partition BY ordner, bildname, ts ORDER BY bild_id DESC) AS rnum
+  FROM import.bilder) t
+                           WHERE t.rnum > 1);")
 
-    for(data in daten){
 
-      if(data == "daten"){
+  ereignis_import <- importTables_list$ereignis
 
-        daten_import[, folder := NULL,]
-        daten_import[, standort_id_folder := NULL,]
+  #TODO remove pfad, folder and standort_id_folder earlier?!
+  ereignis_import[, c("pfad", "folder", "standort_id_folder") := NULL,]
 
-        dbWriteTable(con, c("import", "bilder"),
-                     daten_import, row.names = FALSE, append = TRUE)
+  RPostgreSQL::dbWriteTable(con, c("import", "ereignisse"),
+                            ereignis_import, row.names = FALSE, append = TRUE)
 
-        # lösche Daten, die doppelt importiert wurden
-        dbSendQuery(con, "DELETE FROM import.bilder
-                    WHERE bild_id IN (SELECT bild_id
-                    FROM (SELECT bild_id,
-                    ROW_NUMBER() OVER (partition BY ordner, bildname, ts ORDER BY bild_id DESC) AS rnum
-                    FROM import.bilder) t
-                    WHERE t.rnum > 1);")
-      }
+   # lösche Daten, die doppelt importiert wurden
+  #TODO: check this SQL-code
+  RPostgreSQL::dbSendQuery(con, "DELETE FROM import.ereignisse
+  WHERE ereignis_id IN (SELECT ereignis_id
+  FROM (SELECT ereignis_id, ROW_NUMBER() OVER (partition BY ordner, s_ereignis_id, ts ORDER BY ereignis_id DESC) AS rnum
+  FROM import.ereignisse) t
+                           WHERE t.rnum > 1);")
 
-      if(data=="ereignis"){
-
-        ereignis_import[, pfad := NULL,]
-        ereignis_import[, folder := NULL,]
-        ereignis_import[, standort_id_folder := NULL,]
-
-        dbWriteTable(con, c("import", "ereignisse"),
-                     ereignis_import, row.names = FALSE, append = TRUE)
-
-        # lösche Daten, die doppelt importiert wurden
-        dbSendQuery(con, "DELETE FROM import.ereignisse
-                    WHERE ereignis_id IN (SELECT ereignis_id
-                    FROM (SELECT ereignis_id,
-                    ROW_NUMBER() OVER (partition BY ordner, s_ereignis_id, ts ORDER BY ereignis_id DESC) AS rnum
-                    FROM import.ereignisse) t
-                    WHERE t.rnum > 1);")
-      }
-    }
-
-    dbDisconnect(con)
-
+  dbDisconnect(con)
 }

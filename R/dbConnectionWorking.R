@@ -1,6 +1,6 @@
 #' Eine Probe-Verbindung zur FVA-Fotofallendatenbank mit Schreibrechten, um das Passwort zu überprüfen.
 #'
-#' @return Formal class PostgreSQLConnection
+#' @return Boolean
 #' @export
 #'
 #' @examples
@@ -11,7 +11,7 @@ dbConnectionWorking <- function(psw){
   tryCatch(
     con_check <- with(read.csv(system.file("db_login.csv", package = "DMCr")),{
       DBI::dbConnect(RPostgreSQL::PostgreSQL(),
-                     user = "postgres",
+                     user = user,
                      password = psw,
                      host = host,
                      port = port,
