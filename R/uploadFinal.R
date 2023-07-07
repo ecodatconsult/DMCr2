@@ -205,6 +205,8 @@ uploadFinal <- function(user, psw){
 
         # add the total number of events per species for each deployment
 
+
+        #TODO: Not sure about the purpose here - column names should rather be read from database, I guess.
         require(stringi)
 
         spaltenliste <-

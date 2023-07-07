@@ -7,6 +7,8 @@ checkStandorteNamesWrong <- function(standorte_import_new_sf){
                                                   WHERE TABLE_NAME = N'fotofallen_standorte_import' AND TABLE_SCHEMA = 'fotofallen';")) %>%
     purrr::as_vector()
 
+  RPostgreSQL::dbDisconnect(con)
+
   #comment Alex: these common wrong names most certainly result from exporting geodata as shp
   wr_co <- data.frame(wrong = c("standort_i", "ts_kamera_", "ts_kamera_.1", "ts_kamer_1" ,"kamera_aus","kamera_hoe","sichtfeld_","standortfo", "aufgehaeng", "bemerkunge", "bilderordn", "standort_1", "sichtfel_1", "geometry"),
              correct = c("standort_id","ts_kamera_start", "ts_kamera_ende", "ts_kamera_ende", "kamera_ausrichtung", "kamera_hoehe", "sichtfeld_hoehe", "standortfotos", "aufgehaengt_von", "bemerkungen", "bilderordner", "standort_id_org", "sichtfeld_entfernung", "geom"))
