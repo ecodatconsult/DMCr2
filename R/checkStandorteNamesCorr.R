@@ -1,26 +1,12 @@
-checkStandorteNamesCorr <- function(){
+checkStandorteNamesCorr <- function(standorte_import_new_names_corr_auto_sf, standorte_names_corr_manual_df){
 
-  require(RPostgreSQL)
-  require(DBI)
-  require(sf)
-  require(dplyr)
-  require(rpostgis)
+  namesSF <- names(standorte_import_new_names_corr_auto_sf)
 
-  #data table
-  falsche_names <- falsche_names_df$alt
+  namesSF[na.omit(match(standorte_names_corr_manual_df$alt, namesSF))] <-  standorte_names_corr_manual_df$korrigert[which(standorte_names_corr_manual_df$alt %in% namesSF)]
 
-  #correct wrong names
-  if(length(falsche_names[!is.na(falsche_names)])>0){
 
-    for(falscher_name in falsche_names){
+  names(standorte_import_new_names_corr_auto_sf) <- namesSF
+  sf::st_geometry(standorte_import_new_names_corr_auto_sf) <- "geom"
 
-      #input correct name
-      korrigierter_name <- falsche_names_df$korrigiert[falsche_names_df$alt == falscher_name]
-
-      #correct the name in shapefile
-      names(standorte_import_new_sf)[names(standorte_import_new_sf) == falscher_name] <- korrigierter_name
-      assign("standorte_import_new_sf",standorte_import_new_sf,envir = .GlobalEnv)
-    }
-  }
-
+  return(standorte_import_new_names_corr_auto_sf)
 }

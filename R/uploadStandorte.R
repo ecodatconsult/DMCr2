@@ -1,30 +1,17 @@
-uploadStandorte <- function(){
+uploadStandorte <- function(upload_sf){
 
-  require(RPostgreSQL)
-  require(DBI)
-  require(sf)
-  require(dplyr)
-  require(rpostgis)
-  require(raster)
+  con <- dbConnection()
 
-  dbConnection(type = "write")
+  upload_sf %>%
+    dplyr::filter(!standort_id %in% RPostgreSQL::dbGetQuery(con,"SELECT standort_id FROM import.fotofallen_standorte;")$standort_id) %>%
+    dplyr::mutate(bilderordner = NA,
+                  standort_id_org = NA,
+                  sichtfeld_entfernung = NA) %>% #TODO: clarify purpose
+    sf::st_write(dsn = con,
+                 DBI::Id(schema = "import",
+                         table = "fotofallen_standorte_import"),
+                 delete_layer = FALSE,
+                 append = TRUE)
 
-  if(exists(c("standorte_import_new_sf","standorte_import_DB_sf"),envir = .GlobalEnv)){
-
-  # correct colnames
-  standorte_import_new_sf$bilderordner <- NA
-  standorte_import_new_sf$standort_id_org <- NA
-  standorte_import_new_sf$sichtfeld_entfernung <- NA
-
-  # merge shapefiles
-  all_standorte_import <- raster::union(standorte_import_DB_sf,standorte_import_new_sf)
-
-  # delete duplicated Standorte
-  all_standorte_import <-all_standorte_import[which(!duplicated(all_standorte_import$standort_id)), ]
-
-  # upload
-  pgInsert(con, c("import","fotofallen_standorte_import"), all_standorte_import, overwrite = TRUE)
-
-  }
   dbDisconnect(con)
 }
