@@ -4,14 +4,15 @@
 
 bestPictures <- function(file_path, mask = TRUE, scale = TRUE, size = "x480"){
 
-  require(magick)
-  require(dplyr)
-
   #path to Fotos
-  foto_path <- paste(file_path,"/Fotos",sep = "")
-
+  daten <- importTables(file_path, data = "daten")$daten
   #get folder names
-  d_ordner <- unique(daten$ORDNER)[nchar(unique(daten$ORDNER))!=0]
+  d_ordner <- unique(daten$standort_id_folder)[nchar(unique(daten$standort_id_folder))!=0]
+
+  filenames <- list.files(path = file_path, recursive = T,
+                          pattern = paste("_daten.csv", sep = ""), full.names = TRUE)
+
+  foto_path <- paste(file_path,sep = "")
 
   #create save directory
   save_path <- paste(foto_path,"/bestPictures", sep = "")
@@ -20,10 +21,10 @@ bestPictures <- function(file_path, mask = TRUE, scale = TRUE, size = "x480"){
   #mask
   if(mask == TRUE){
     #import
-    maske <- image_read("N:/Projekte/Forschungscluster_1768/02_Projektmodule/01_Kamerafallenthemen/FVA_Fotofallendatenbank/R/R-Paket/DMCr/data/Fotofallenmaske_FVA.png")
+    maske <- magick::image_read(system.file("Fotofallenmaske_FVA.png", package = "DMCr2"))
     #scale it
     if(scale == TRUE){
-      maske <- image_scale(maske, size)
+      maske <- magick::image_scale(maske, size)
     }
   }
 
@@ -42,6 +43,7 @@ bestPictures <- function(file_path, mask = TRUE, scale = TRUE, size = "x480"){
       if (!is.na(bilder_export[1])){
         bilder_export <- bilder_export[nchar(bilder_export) != 0]
 
+        j = bilder_export[1]
         #run for each picture
         for (j in bilder_export){
           tryCatch({
@@ -60,15 +62,15 @@ bestPictures <- function(file_path, mask = TRUE, scale = TRUE, size = "x480"){
                                       pattern = ".JPG", replacement = "")
 
             #load the picture
-            bild <- image_read(d_foto_origin)
+            bild <- magick::image_read(d_foto_origin)
 
             #scale it
             if(scale == TRUE){
-              bild <- image_scale(bild, size)
+              bild <- magick::image_scale(bild, size)
             }
 
             #add meta data
-            bild <- image_annotate(bild, bildname,
+            bild <- magick::image_annotate(bild, bildname,
                                size = 30,
                                color = "black",
                                boxcolor = "white",
@@ -80,7 +82,7 @@ bestPictures <- function(file_path, mask = TRUE, scale = TRUE, size = "x480"){
             }
 
             #save new picture
-            image_write(image_mosaic(bild),
+            magick::image_write(magick::image_mosaic(bild),
                           path = d_foto_destination)
             }
           , error=function(e){
