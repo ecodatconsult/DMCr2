@@ -4,7 +4,7 @@
 \alias{uploadImport}
 \title{Datentabellen (daten und ereignis) der Session werden in die FVA-Fotofallendatenbank hochgeladen (PostgreSQL)}
 \usage{
-uploadImport()
+uploadImport(importTables_list)
 }
 \description{
 Datentabellen (daten und ereignis) der Session werden in die FVA-Fotofallendatenbank hochgeladen (PostgreSQL)

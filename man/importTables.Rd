@@ -7,9 +7,9 @@
 importTables(file_path, data = c("daten", "ereignis"))
 }
 \arguments{
-\item{file_path}{Pfad zum Ordner der Session. Beispielsweise "N:/Projekte/Gruenbrueckenmonitor_1708/Daten/Feldarbeit/Fotofallenmonitoring/session_07".}
+\item{file_path}{character, Pfad zum Ordner der Session. Beispielsweise "N:/Projekte/Gruenbrueckenmonitor_1708/Daten/Feldarbeit/Fotofallenmonitoring/session_07".}
 
-\item{data}{Character vector,  bestimmt welche Tabellen geladen werden sollen: data = c("daten","ereignis").}
+\item{data}{character vector, bestimmt welche Tabellen geladen werden sollen: data = c("daten","ereignis").}
 }
 \value{
 data.table/data.frame

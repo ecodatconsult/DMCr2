@@ -2,7 +2,7 @@
 % Please edit documentation in R/dbConnection.R
 \name{dbConnection}
 \alias{dbConnection}
-\title{Baut eine Verbindung zur FVA-Fotofallendatenbank auf (PostgreSQL).}
+\title{Baut eine Verbindung zur Fotofallendatenbank auf (PostgreSQL).}
 \usage{
 dbConnection(type)
 }
@@ -10,5 +10,5 @@ dbConnection(type)
 Formal class PostgreSQLConnection
 }
 \description{
-Baut eine Verbindung zur FVA-Fotofallendatenbank auf (PostgreSQL).
+Baut eine Verbindung zur Fotofallendatenbank auf (PostgreSQL).
 }
