@@ -2,6 +2,7 @@
 #' This function is intended as an input to the roots parameter in fileGetter() and shinyFileChoose(). It returns a function that returns a named vector of available volumes on the system. This construction makes it dynamic so that a shinyFiles instance reflects new volumes as they get added (e.g. usb drives). The function takes a single argument giving names of volumes the developer wants removed from the return value.
 #' @param exclude A vector of volume names to be excluded from the return value
 #' @return character vector of available volumes
+#' @export
 
 shinyFiles_getVolumes <- function(exclude = NA){
   osSystem <- Sys.info()["sysname"]
