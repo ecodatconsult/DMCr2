@@ -6,7 +6,6 @@
 #' @return data.table/data.frame
 #' @export
 #'
-#' @examples
 #'
 importTables <- function(file_path, data = c("daten", "ereignis")) {
   # read daten und ereignis csvs

@@ -1,7 +1,5 @@
-# Kopiere das beste Bild eines jeden Ereignisses in einen export_Ordner
-# (hierbei wird das Bild verkleinert und ein Overlay hinzugefügt)
-################################################################################
-
+#' Kopiere das beste Bild eines jeden Ereignisses in einen export_Ordner
+#' (hierbei wird das Bild verkleinert und ein Overlay hinzugefügt)
 #' @param file_path character, Pfad zu dem Speicherort für die Bilder und dem Hauptordner der Ereignisse
 #' @param mask boolean, gibt an, ob die FVA-Bildmaske hinzugefügt werden soll
 #' @param scale boolean, wenn TRUE werden Bilder entsprechend dem size-Parameter angepasst (s.u.)
@@ -9,7 +7,7 @@
 
 #' @return nothing
 #' @export
-#'
+
 #'
 bestPictures <- function(file_path, mask = TRUE, scale = TRUE, size = "x480"){
 

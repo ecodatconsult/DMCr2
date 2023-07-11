@@ -5,14 +5,13 @@
 #' @return data.table
 #' @export
 #'
-#' @examples
 #'
 
 processImportTables <- function(daten_ereignis_list) {
 
     table_import_list <- lapply(daten_ereignis_list, function(data){
 
-    names(data)[stringr::str_detect(names(data),"AUSSGR")] <- "AUSSGRßE"
+     names(data)[stringr::str_detect(names(data),"AUSSGR")] <- "AUSSGRßE"
 
     table_import <- data[, .(
       "s_foto_id" = s_foto_id
@@ -70,7 +69,7 @@ processImportTables <- function(daten_ereignis_list) {
                                   format = "%d.%m.%Y %H:%M:%S")
 
     # Ersetze in Spalten mit Integers NAs durch 0
-    int_cols_with_na <- which(str_detect(names(table_import), "^n_"))
+    int_cols_with_na <- which(stringr::str_detect(names(table_import), "^n_"))
 
     table_import[,
                  (int_cols_with_na) := lapply(.SD, function(x) ifelse(is.na(x), 0, x)),

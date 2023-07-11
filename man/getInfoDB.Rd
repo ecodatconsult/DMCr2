@@ -23,3 +23,7 @@ named character vector
 \description{
 Ruft Infos aus Information_Schema ab, um bspw. Spaltennamen einer Tabelle aus der Datenbank abzurufen
 }
+\examples{
+getInfoDB(type = "column_name", schema = "fotofallen", table = "fotofallen_standorte_import")
+
+}

@@ -1,3 +1,11 @@
+#' Gibt alle Tierarten in fotofallen.ereignisse in der Datenbank an
+#'
+#' @return character vector
+#' @export
+#'
+#' @examples #' speciesDB()
+#'
+
 speciesDB <- function(){
   con <- dbConnection()
 
@@ -7,7 +15,7 @@ speciesDB <- function(){
   species <- sort(unique(c(df_ereignisse$tierart_1,df_ereignisse$tierart_2)))
   species <- species[species != ""]
 
-  dbDisconnect(con)
+  DBI::dbDisconnect(con)
 
   return(species)
 }

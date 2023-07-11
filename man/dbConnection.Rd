@@ -4,7 +4,7 @@
 \alias{dbConnection}
 \title{Baut eine Verbindung zur Fotofallendatenbank auf (PostgreSQL).}
 \usage{
-dbConnection(type)
+dbConnection()
 }
 \value{
 Formal class PostgreSQLConnection

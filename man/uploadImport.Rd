@@ -6,6 +6,12 @@
 \usage{
 uploadImport(importTables_list)
 }
+\arguments{
+\item{importTables_list}{list, Liste mit Daten und Ereignissen als data.tables nach Durchführung der Korrekturfunktionen}
+}
+\value{
+Nothing
+}
 \description{
 Datentabellen (daten und ereignis) der Session werden in die FVA-Fotofallendatenbank hochgeladen (PostgreSQL)
 }

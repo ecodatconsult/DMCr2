@@ -1,9 +1,8 @@
+#' vermutlich veraltete Funktion, wird aktuell noch belassen
 #' Datentabellen (daten und ereignis) der Session werden in die FVA-Fotofallendatenbank hochgeladen (PostgreSQL)
 #'
-#' @return
 #' @export
 #'
-#' @examples
 #'
 # Fotofallen_Standorte
 uploadFinal <- function(user, psw){

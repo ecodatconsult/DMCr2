@@ -9,7 +9,6 @@
 #' @return Die Fotos werden am Speicherort überschrieben.
 #' @export
 #'
-#' @examples
 #'
 blurPerson <- function(file_path, scale = TRUE, size= 480, column, selection = c("Mensch","Mensch u Hund",...)){
 

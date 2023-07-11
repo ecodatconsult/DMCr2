@@ -7,7 +7,7 @@
 #' @return named character vector
 #' @export
 #'
-#' @examples
+#' @examples getInfoDB(type = "column_name", schema = "fotofallen", table = "fotofallen_standorte_import")
 #'
 getInfoDB <- function(type = "column_name", schema = "fotofallen", table = "fotofallen_standorte_import"){
   con <- dbConnection()

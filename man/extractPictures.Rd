@@ -11,7 +11,9 @@ extractPictures(bilder_table, save_path, scale = TRUE, size = "x480", tags)
 
 \item{save_path}{character, Pfad zu dem Speicherort für die Bilder}
 
-\item{scale}{character, gibt die Bildhöhe an. "x480" ändert die Bildhöhe auf 480 Pixel, der aspect ratio wird beibehalten}
+\item{scale}{boolean, wenn TRUE werden Bilder entsprechend dem size-Parameter angepasst (s.u.)}
+
+\item{size}{character, gibt die Bildhöhe an. "x480" ändert die Bildhöhe auf 480 Pixel, der aspect ratio wird beibehalten}
 
 \item{tags}{character vector, gibt die tags an, die in den Bildern eingetragen werden sollen}
 }

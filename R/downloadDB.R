@@ -7,8 +7,6 @@
 #' @return data.frame
 #' @export
 #'
-#' @examples
-#'
 downloadDB <- function(data, species, project){
 
   con <- dbConnection()
@@ -46,6 +44,6 @@ downloadDB <- function(data, species, project){
                                                     sid = standorte_with_projekt,
                                                     sps = standorte_with_species, .con = con))
   }
-  RPostgreSQL::dbDisconnect(con)
+  DBI::dbDisconnect(con)
   return(output)
 }
