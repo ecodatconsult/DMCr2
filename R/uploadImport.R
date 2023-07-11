@@ -42,5 +42,5 @@ uploadImport <- function(importTables_list){
   FROM import.ereignisse) t
                            WHERE t.rnum > 1);")
 
-  dbDisconnect(con)
+  DBI::dbDisconnect(con)
 }
