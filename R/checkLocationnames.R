@@ -17,7 +17,7 @@ checkLocationnames <- function(importTables_list){
 
   falsche_standorte <- import_standorte[!import_standorte %in% db_standorte]
 
-  dbDisconnect(con)
+  DBI::dbDisconnect(con)
 
   return(data.table::data.table("Standort_ID" = falsche_standorte))
 
