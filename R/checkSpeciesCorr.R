@@ -4,6 +4,7 @@
 #' @param falsche_tierarten_df data.frame, Datentabelle mit alten und korrigierten Tierartenbezeichnungen
 #'
 #' @return list, Liste mit Datentabellen mit korrigierten Tiernamen
+#' @import data.table
 #' @export
 #'
 checkSpeciesCorr <- function(importTables_list, falsche_tierarten_df){

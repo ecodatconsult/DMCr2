@@ -9,6 +9,9 @@ uploadStandorte(upload_sf)
 \arguments{
 \item{upload_sf}{simple feature Objekt, Fotofallenstandorte mit korrigierten bzw. überprüften Spaltenbezeichnungen}
 }
+\value{
+character, Nachricht über den Verlauf des Uploads
+}
 \description{
 Standorte der Session werden in die FVA-Fotofallendatenbank (fotofallen.fotofallen_standorte_import) hochgeladen (PostgreSQL)
 }

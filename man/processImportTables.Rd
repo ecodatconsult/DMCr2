@@ -10,7 +10,7 @@ processImportTables(daten_ereignis_list)
 \item{daten_ereignis_list}{list, enthält die beiden data.tables daten und ereignis (output von importTables)}
 }
 \value{
-data.table
+data.table object
 }
 \description{
 Bereinigt die mittels importTables geladenen Tabellen

@@ -2,6 +2,7 @@
 #'
 #' @param importTables_list list, Liste mit Daten und Ereignissen als data.tables nach Durchführung der Korrekturfunktionen
 #' @return Nothing
+#' @import data.table
 #' @export
 #'
 # Fotofallen_Standorte

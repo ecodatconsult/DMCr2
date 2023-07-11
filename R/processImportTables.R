@@ -1,8 +1,8 @@
 #' Bereinigt die mittels importTables geladenen Tabellen
 #'
 #' @param daten_ereignis_list list, enthält die beiden data.tables daten und ereignis (output von importTables)
-#'
-#' @return data.table
+#' @import data.table
+#' @return data.table object
 #' @export
 #'
 #'

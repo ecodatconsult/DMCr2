@@ -1,6 +1,7 @@
 #' Ersetzt Ordnernamen durch tatsächlichen Ordnernamen
 #'
 #' @param importTables_list list, Liste die mit DMCr2::importTables() und DMCr2::processImportTables() erstellt wurde
+#' @import data.table
 #' @export
 
 checkFoldernames <- function(importTables_list){
