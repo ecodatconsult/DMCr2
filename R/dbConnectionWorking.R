@@ -3,25 +3,31 @@
 #' @return Boolean
 #' @export
 #'
-#' @examples
+#' @examples #'
+#' # returns FALSE
+#' dbConnectionWorking("falsches_passwort")
 #'
 #'
 dbConnectionWorking <- function(psw){
 
-  tryCatch(
-    con_check <- with(read.csv(system.file("db_login.csv", package = "DMCr")),{
-      DBI::dbConnect(RPostgreSQL::PostgreSQL(),
-                     user = user,
-                     password = psw,
-                     host = host,
-                     port = port,
-                     dbname = db)
-    })
+  if(file.exists(system.file("db_login.csv", package = "DMCr2"))){
+      tryCatch(
+        con_check <- with(read.csv(system.file("db_login.csv", package = "DMCr2")),{
+          DBI::dbConnect(RPostgreSQL::PostgreSQL(),
+                         user = user,
+                         password = psw,
+                         host = host,
+                         port = port,
+                         dbname = db)
+        })
 
-  , error=function(e) {})
+      , error=function(e) {})
 
-  if(exists("con_check")) DBI::dbDisconnect(con_check)
+      if(exists("con_check")) DBI::dbDisconnect(con_check)
 
-  return(exists("con_check"))
+      return(exists("con_check"))
+    }else{
+      stop("Fehlende Login-Informationen, bitte führe zunächst DMCr2::setDBLoginCredentials() erfolgreich aus.")
+      }
 }
 

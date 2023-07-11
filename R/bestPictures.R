@@ -1,10 +1,20 @@
-# Kopiere das beste Bild eines jeden Ereignis in einen export_Ordner
+# Kopiere das beste Bild eines jeden Ereignisses in einen export_Ordner
 # (hierbei wird das Bild verkleinert und ein Overlay hinzugefügt)
 ################################################################################
 
+#' @param file_path character, Pfad zu dem Speicherort für die Bilder und dem Hauptordner der Ereignisse
+#' @param mask boolean, gibt an, ob die FVA-Bildmaske hinzugefügt werden soll
+#' @param scale boolean, wenn TRUE werden Bilder entsprechend dem size-Parameter angepasst (s.u.)
+#' @param size character, gibt die Bildhöhe an. "x480" ändert die Bildhöhe auf 480 Pixel, der aspect ratio wird beibehalten
+
+#' @return nothing
+#' @export
+#'
+#'
 bestPictures <- function(file_path, mask = TRUE, scale = TRUE, size = "x480"){
 
   #path to Fotos
+  # TODO: unklar, ob bestPictures in der Shiny-Anwendung laufen soll!
   daten <- importTables(file_path, data = "daten")$daten
   #get folder names
   d_ordner <- unique(daten$standort_id_folder)[nchar(unique(daten$standort_id_folder))!=0]

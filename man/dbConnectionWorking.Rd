@@ -12,3 +12,10 @@ Boolean
 \description{
 Eine Probe-Verbindung zur FVA-Fotofallendatenbank mit Schreibrechten, um das Passwort zu überprüfen.
 }
+\examples{
+#'
+# returns FALSE
+dbConnectionWorking("falsches_passwort")
+
+
+}

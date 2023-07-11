@@ -2,13 +2,13 @@
 #'
 #' @param bilder_table data.table, Datentabelle mit Information zu den Pfaden zu den Bildern (i.d.R. erstellt mit downloadDB("bilder", "alle Arten", "alle Projekte"))
 #' @param save_path character, Pfad zu dem Speicherort für die Bilder
-#' @param scale character, gibt die Bildhöhe an. "x480" ändert die Bildhöhe auf 480 Pixel, der aspect ratio wird beibehalten
+#' @param scale boolean, wenn TRUE werden Bilder entsprechend dem size-Parameter angepasst (s.u.)
+#' @param size character, gibt die Bildhöhe an. "x480" ändert die Bildhöhe auf 480 Pixel, der aspect ratio wird beibehalten
 #' @param tags character vector, gibt die tags an, die in den Bildern eingetragen werden sollen
 #'
 #' @return data.frame
 #' @export
 #'
-#' @examples
 
 extractPictures <- function(bilder_table, save_path, scale = TRUE, size = "x480", tags){
 

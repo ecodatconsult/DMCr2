@@ -1,3 +1,10 @@
+#' Idenfitiziert falsche bzw noch nicht in der Datenbank abgelegte Standortbezeichnungen
+#'
+#' @param importTables_list list, Liste die mit DMCr2::importTables() und DMCr2::processImportTables() erstellt wurde
+#'
+#' @return data.table, Tabelle mit fraglichen Standortbezeichnungen
+#' @export
+#'
 checkLocationnames <- function(importTables_list){
 
   con <- dbConnection()

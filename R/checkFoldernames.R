@@ -1,3 +1,8 @@
+#' Ersetzt Ordnernamen durch tatsächlichen Ordnernamen
+#'
+#' @param importTables_list list, Liste die mit DMCr2::importTables() und DMCr2::processImportTables() erstellt wurde
+#' @export
+
 checkFoldernames <- function(importTables_list){
   falsche_ordnernamen_df <- unique(importTables_list$daten[standort_id != standort_id_folder, .(standort_id,standort_id_folder),])
 

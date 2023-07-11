@@ -1,3 +1,10 @@
+#' Führt automatische Korrektur von Spaltenbezeichnungen der Standorte durch
+#'
+#' @param standorte_import_new_sf simple feature (sf), Standorte ohne Korrektur der Spaltenbezeichnungen
+#'
+#' @return simple feature (sf), Standorte mit automatisch korrigierten Spaltenbezeichnungen
+#' @export
+
 checkStandorteNamesWrong <- function(standorte_import_new_sf){
 
   #read column names from database via INFORMATION_SCHEMA

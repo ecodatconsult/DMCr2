@@ -1,3 +1,11 @@
+#' Führt manuelle Korrektur von Spaltenbezeichnungen der Standorte durch
+#'
+#' @param standorte_import_new_names_corr_auto_sf simple feature (sf), Standorte mit automatisch korrigierten Spaltenbezeichnungen
+#' @param standort_names_corr_manual_df data.frame, Tabelle mit alten und korrigierten Spaltenbezeichnungen
+#'
+#' @return simple feature (sf), Standorte mit automatisch und manuell korrigierten Spaltenbezeichnungen
+#' @export
+
 checkStandorteNamesCorr <- function(standorte_import_new_names_corr_auto_sf, standorte_names_corr_manual_df){
 
   namesSF <- names(standorte_import_new_names_corr_auto_sf)
