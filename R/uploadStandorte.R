@@ -27,5 +27,5 @@ uploadStandorte <- function(upload_sf){
                    append = TRUE)
   }
 
-  dbDisconnect(con)
+  RPostgreSQL::dbDisconnect(con)
 }
