@@ -12,6 +12,7 @@
 #'
 blurPerson <- function(file_path, scale = TRUE, size= 480, column, selection = c("Mensch","Mensch u Hund",...)){
 
+  # TODO: currently not revised and propably not working
   require(magick)
 
   #spath to .bat file

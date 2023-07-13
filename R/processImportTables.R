@@ -11,7 +11,9 @@ processImportTables <- function(daten_ereignis_list) {
 
     table_import_list <- lapply(daten_ereignis_list, function(data){
 
-     names(data)[stringr::str_detect(names(data),"AUSSGR")] <- "AUSSGRßE"
+    if(any(stringr::str_detect(names(data),"AUSSGR"))){
+      names(data)[stringr::str_detect(names(data),"AUSSGR")] <- "AUSSGRßE"
+    }
 
     table_import <- data[, .(
       "s_foto_id" = s_foto_id

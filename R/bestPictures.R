@@ -9,12 +9,15 @@
 #' @export
 
 #'
+#'
 bestPictures <- function(file_path, mask = TRUE, scale = TRUE, size = "x480"){
 
   #path to Fotos
   # TODO: unklar, ob bestPictures in der Shiny-Anwendung laufen soll!
+  # TODO: bestPictures sollte optimalerweise mit downloadDB.R gekoppelt werden
   daten <- importTables(file_path, data = "daten")$daten
   #get folder names
+  # TODO: this will not work if folder name changed but is not updated in _daten.csv
   d_ordner <- unique(daten$standort_id_folder)[nchar(unique(daten$standort_id_folder))!=0]
 
   filenames <- list.files(path = file_path, recursive = T,

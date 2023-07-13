@@ -1,8 +1,8 @@
 #' Ruft Daten von der FVA-Fotofallendatenbank ab.
 #'
-#' @param data Bestimmt welche Art von Daten abgefragt werden sollen. Es ist nur ein Wert erblaubt.
-#' @param species Character vector mit Arten, von denen Daten abgefragt werden sollen. Der Wert "alle Arten" ruft Daten für alle in der Datenbank vorhandene Arten ab.
-#' @param project Auswahl eines Projekts oder alle, für das Daten abgefragt werden sollen. Der Wert "alle Projekte" ruft Daten für alle in der Datenbank vorhandene Projekte ab.
+#' @param data Character, Bestimmt welche Art von Daten (data = "ereignisse", data = "bilder" oder data = "standorte")  abgefragt werden sollen. Es ist nur ein Wert erblaubt.
+#' @param species Character vector mit Arten, von denen Daten abgefragt werden sollen. Der Wert "alle Arten" ruft Daten für alle in der Datenbank vorhandene Arten ab. Falls data = "standorte" werden nur Standorte abgefragt, an denen eine bestimmte Tierart in fotofallen.ereignisse vorkommt (tierart_1 oder tierart_2).
+#' @param project Character vector, Auswahl eines Projekts, mehrerer oder aller Projekte, für das Daten abgefragt werden sollen. Der Wert "alle Projekte" ruft Daten für alle in der Datenbank vorhandene Projekte ab.
 #'
 #' @return data.frame
 #' @export
