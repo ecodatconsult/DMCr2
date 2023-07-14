@@ -4,7 +4,14 @@
 \alias{extractPictures}
 \title{Ruft Bilder aus dem Ordnerverzeichnis anhand der Datenbankinfo ab}
 \usage{
-extractPictures(bilder_table, save_path, scale = TRUE, size = "x480", tags)
+extractPictures(
+  bilder_table,
+  save_path,
+  scale = TRUE,
+  size = "x480",
+  tags = NULL,
+  test_mode = FALSE
+)
 }
 \arguments{
 \item{bilder_table}{data.table, Datentabelle mit Information zu den Pfaden zu den Bildern (i.d.R. erstellt mit downloadDB("bilder", "alle Arten", "alle Projekte"))}
@@ -16,6 +23,8 @@ extractPictures(bilder_table, save_path, scale = TRUE, size = "x480", tags)
 \item{size}{character, gibt die Bildhöhe an. "x480" ändert die Bildhöhe auf 480 Pixel, der aspect ratio wird beibehalten}
 
 \item{tags}{character vector, gibt die tags an, die in den Bildern eingetragen werden sollen}
+
+\item{test_mode}{boolean, nur für Testzwecke zu nutzen}
 }
 \value{
 data.frame
