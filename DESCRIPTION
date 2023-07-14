@@ -12,7 +12,7 @@ Description: This package facilitates the transfer of FFM2-classified
     PostgreSQL-Database and a local system.
 License: Open Source Software
 Depends: 
-    R (>= 4.1.3)
+    R (>= 4.0.5)
 Imports:
     data.table,
     DBI,
