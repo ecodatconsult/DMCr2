@@ -1,6 +1,6 @@
 test_that("downloading ereignisse works", {
   dl <- downloadDB(data = "ereignisse", species = "Rothirsch", project = "Rotwildmanagement_BW")
-  expect_equal(unique(dl$tierart_1), "Rothirsch")
+  expect_true(all(dl$tierart_1  == "Rothirsch" | dl$tierart_2 == "Rothirsch"))
 })
 
 test_that("downloading bilder works", {
