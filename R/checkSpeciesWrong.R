@@ -15,7 +15,7 @@ checkSpeciesWrong <- function(importTables_list, speciesDB_vector){
     data.frame() %>%
     setNames("alt") %>%
     dplyr::group_by(alt) %>%
-    summarise(anzahl = dplyr::n()) %>%
+    dplyr::summarise(anzahl = dplyr::n()) %>%
     dplyr::filter(!alt %in% speciesDB_vector) %>%
     dplyr::mutate(korrigiert = NA)
 

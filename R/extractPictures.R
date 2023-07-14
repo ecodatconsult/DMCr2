@@ -5,18 +5,24 @@
 #' @param scale boolean, wenn TRUE werden Bilder entsprechend dem size-Parameter angepasst (s.u.)
 #' @param size character, gibt die Bildhöhe an. "x480" ändert die Bildhöhe auf 480 Pixel, der aspect ratio wird beibehalten
 #' @param tags character vector, gibt die tags an, die in den Bildern eingetragen werden sollen
+#' @param test_mode boolean, nur für Testzwecke zu nutzen
 #'
 #' @return data.frame
 #' @export
 #'
 
-extractPictures <- function(bilder_table, save_path, scale = TRUE, size = "x480", tags){
+extractPictures <- function(bilder_table, save_path, scale = TRUE, size = "x480", tags = NULL, test_mode = FALSE){
 
     con <- dbConnection()
 
     df_standorte_bilderordner <- RPostgreSQL::dbGetQuery(con,"SELECT DISTINCT(bilderordner) FROM fotofallen.fotofallen_standorte")$bilderordner
 
     RPostgreSQL::dbDisconnect(con)
+
+    # overwrite df_standorte_bilderordner with path to test_data
+    if(test_mode){
+      df_standorte_bilderordner <- paste0(system.file("test_data", package = "DMCr2"), .Platform$file.sep, basename(df_standorte_bilderordner))
+    }
 
     # construct path 2 images, detect missing path info and accessbility issues
     bilder_table <-
@@ -29,22 +35,32 @@ extractPictures <- function(bilder_table, save_path, scale = TRUE, size = "x480"
       dplyr::as_tibble()
 
     # read and process images based on the input
-    apply(bilder_table %>%
-            filter(pfad_gegeben & pfad_abrufbar),
-          1,
-          function(x){
-            img <- magick::image_read(x$pfad_bild)
 
-            img %>%
-              magick::image_scale(ifelse(scale, size, paste0("x", magick::image_info(img)$height))) %>%
-              magick::image_annotate(paste(paste(tags,x[,tags],sep = ": "),collapse = "\n"),
-                                     size = 20,
-                                     color = "black",
-                                     boxcolor = "white",
-                                     location = "+10+10") %>%
-              magick::image_mosaic() %>%
-              magick::image_write(paste0(save_path,.Platform$file.sep,x$ordner,"-",x$bildname))
-          })
+if(nrow(bilder_table %>%
+            dplyr::filter(pfad_gegeben & pfad_abrufbar)) > 0){
+      apply(bilder_table %>%
+            dplyr::filter(pfad_gegeben & pfad_abrufbar),
+            1,
+            function(x){
+              print(x)
+              img <- magick::image_read(x["pfad_bild"]) %>%
+                magick::image_scale(ifelse(scale, size, paste0("x", magick::image_info(img)$height)))
+
+              if(!is.null(tags) & length(tags) > 0){
+                img <- img %>%
+                magick::image_annotate(paste(paste(tags,x[,tags],sep = ": "),collapse = "\n"),
+                                       size = 20,
+                                       color = "black",
+                                       boxcolor = "white",
+                                       location = "+10+10")
+              }
+
+              img %>%
+                magick::image_mosaic() %>%
+                magick::image_write(paste0(save_path,.Platform$file.sep,x["ordner"],"-",x["bildname"]))
+            })
+    }
+
 
     # return missing and inaccesible paths
     return(list(pfade_ohne_zugriff_df = bilder_table$pfad_bild[!bilder_table$pfad_abrufbar],
