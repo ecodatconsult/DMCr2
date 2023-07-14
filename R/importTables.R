@@ -9,6 +9,7 @@
 #'
 importTables <- function(file_path, data = c("daten", "ereignis")) {
   # read daten und ereignis csvs
+  # TODO only list files once and replace ereignis by daten or use list.dirs and append ereignis.csv / daten.csv and filter with file.exists
   lapply(as.list(data) %>% setNames(data), function(i){
     filenames <- list.files(path = file_path,
                             recursive=T,
