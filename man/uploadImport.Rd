@@ -4,10 +4,12 @@
 \alias{uploadImport}
 \title{Datentabellen (daten und ereignis) der Session werden in die FVA-Fotofallendatenbank hochgeladen (PostgreSQL)}
 \usage{
-uploadImport(importTables_list)
+uploadImport(importTables_list, schema = "import")
 }
 \arguments{
 \item{importTables_list}{list, Liste mit Daten und Ereignissen als data.tables nach Durchführung der Korrekturfunktionen}
+
+\item{schema}{character, Schema in das der Upload durchgeführt werden soll, Duplikate werden nicht in das gewählte Schema importiert}
 }
 \value{
 Nothing
