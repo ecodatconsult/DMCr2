@@ -9,6 +9,7 @@
 #'
 
 checkSpeciesWrong <- function(importTables_list, speciesDB_vector){
+
   falsche_tierarten_df <- c(importTables_list$ereignis$tierart_1,
                             importTables_list$ereignis$tierart__2) %>%
     sort() %>%
@@ -17,6 +18,8 @@ checkSpeciesWrong <- function(importTables_list, speciesDB_vector){
     dplyr::group_by(alt) %>%
     dplyr::summarise(anzahl = dplyr::n()) %>%
     dplyr::filter(!alt %in% speciesDB_vector) %>%
+    dplyr::mutate(vorschlag = sapply(alt, function(wrong_term) speciesDB_vector[agrep(pattern = wrong_term, x = speciesDB_vector)][1])) %>%
+    dplyr::mutate(vorschlag = ifelse(is.na(vorschlag), "Kein ähnlicher\nEintrag in DB!", vorschlag)) %>%
     dplyr::mutate(korrigiert = NA)
 
     return(falsche_tierarten_df)

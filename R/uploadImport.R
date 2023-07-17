@@ -11,7 +11,6 @@ uploadImport <- function(importTables_list, schema = "import"){
 
   con <- dbConnection()
   # upload bilder
-  importTables_list <- processImportTables(importTables(file_path = "inst/test_data/", data = c("daten", "ereignis")))
 
   locs2upload <- unique(importTables_list$daten$ordner)
   locs_in_db <- RPostgreSQL::dbGetQuery(con, glue::glue_sql("select distinct ordner from ", schema, ".bilder where ordner in ({upload_locs*})", upload_locs = locs2upload, .con = con)) #TODO make sure that ordner is sufficient id!!

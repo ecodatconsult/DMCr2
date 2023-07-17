@@ -9,20 +9,25 @@
 #'
 checkSpeciesCorr <- function(importTables_list, falsche_tierarten_df){
 
-  ft_df <- data.table::as.data.table(falsche_tierarten_df)
+  if(all(falsche_tierarten_df$korrigiert %in% speciesDB())){
+    ft_df <- data.table::as.data.table(falsche_tierarten_df)
 
-  lapply(importTables_list, function(dt_in){
-    dt <- data.table::merge.data.table(dt_in, ft_df, by.y = "alt", by.x = "tierart_1", all.x = TRUE)
-    dt[, tierart_1 := ifelse(is.na(korrigiert), tierart_1, korrigiert)]
-    dt[, c("korrigiert", "anzahl"):= NULL]
+    lapply(importTables_list, function(dt_in){
+      dt <- data.table::merge.data.table(dt_in, ft_df, by.y = "alt", by.x = "tierart_1", all.x = TRUE)
+      dt[, tierart_1 := ifelse(is.na(korrigiert), tierart_1, korrigiert)]
+      dt[, c("korrigiert", "anzahl"):= NULL]
 
-    dt <- data.table::merge.data.table(dt, ft_df, by.y = "alt", by.x = "tierart_2", all.x = TRUE)
-    dt[, tierart_2 := ifelse(is.na(korrigiert), tierart_2, korrigiert)]
-    dt[, c("korrigiert", "anzahl"):= NULL]
+      dt <- data.table::merge.data.table(dt, ft_df, by.y = "alt", by.x = "tierart_2", all.x = TRUE)
+      dt[, tierart_2 := ifelse(is.na(korrigiert), tierart_2, korrigiert)]
+      dt[, c("korrigiert", "anzahl"):= NULL]
 
-    data.table::setcolorder(dt, names(dt_in))
+      data.table::setcolorder(dt, names(dt_in))
 
-    return(dt)
-  })
+      return(dt)
+      })
+  }else{
+    print("Unbekannte Tierartbezeichnungen in der Korrekturtabelle. Bitte überprüfen!")
+    return(NULL)
+  }
 }
 
