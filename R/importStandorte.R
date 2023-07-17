@@ -1,6 +1,6 @@
 #' Ruft Fotofallenstandorte aus der Datenbank ab und lädt zugleich neue Standorte in die akutelle Session ein
 #'
-#' @param type character, bestimmt welche Information abgefragt werden soll
+#' @param file_path character, Pfad zu den lokalen Geodaten
 #' @param project character, Projektbezeichnung der importierten Standorte
 #' @param target_crs numeric, EPSG-Nummer der Koordinatenreferenzsystems (CRS)
 #'

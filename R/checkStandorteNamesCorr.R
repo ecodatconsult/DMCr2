@@ -10,11 +10,25 @@ checkStandorteNamesCorr <- function(standorte_import_new_names_corr_auto_sf, sta
 
   namesSF <- names(standorte_import_new_names_corr_auto_sf)
 
-  namesSF[na.omit(match(standorte_names_corr_manual_df$alt, namesSF))] <-  standorte_names_corr_manual_df$korrigert[which(standorte_names_corr_manual_df$alt %in% namesSF)]
+  namesSF[na.omit(match(standorte_names_corr_manual_df$alt, namesSF))] <-  standorte_names_corr_manual_df$korrigiert[which(standorte_names_corr_manual_df$alt %in% namesSF)]
 
 
   names(standorte_import_new_names_corr_auto_sf) <- namesSF
   sf::st_geometry(standorte_import_new_names_corr_auto_sf) <- "geom"
 
-  return(standorte_import_new_names_corr_auto_sf)
+  namesDB <- getInfoDB(type = "column_name",
+                       schema = "fotofallen",
+                       table = "fotofallen_standorte_import")
+
+  if(all(namesDB %in% names(standorte_import_new_names_corr_auto_sf))){
+    print("Alle erforderlichen Spalten vorhanden")
+
+    return(
+      standorte_import_new_names_corr_auto_sf %>%
+        dplyr::select((namesDB %>% as.vector()))
+    )
+  }else{
+    print("Nicht alle erforderlichen Spalten vorhanden. Überprüfe Datensatz und Korrektur")
+    return(NULL)
+  }
 }
