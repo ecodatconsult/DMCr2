@@ -16,11 +16,17 @@ checkSpeciesWrong <- function(importTables_list, speciesDB_vector){
     data.frame() %>%
     setNames("alt") %>%
     dplyr::group_by(alt) %>%
+    mutate(alt = ifelse(alt == "", NA, alt)) %>%
     dplyr::summarise(anzahl = dplyr::n()) %>%
-    dplyr::filter(!alt %in% speciesDB_vector) %>%
+    dplyr::filter(!alt %in% speciesDB_vector)
+
+  if(nrow(falsche_tierarten_df) > 0){
+    falsche_tierarten_df <- falsche_tierarten_df %>%
     dplyr::mutate(vorschlag = sapply(alt, function(wrong_term) speciesDB_vector[agrep(pattern = wrong_term, x = speciesDB_vector)][1])) %>%
-    dplyr::mutate(vorschlag = ifelse(is.na(vorschlag), "Kein ähnlicher\nEintrag in DB!", vorschlag)) %>%
-    dplyr::mutate(korrigiert = NA)
+      dplyr::mutate(vorschlag = ifelse(is.na(vorschlag), "Kein ähnlicher\nEintrag in DB!", vorschlag)) %>%
+      dplyr::mutate(korrigiert = NA)
+
+  }
 
     return(falsche_tierarten_df)
 }
