@@ -31,7 +31,7 @@ checkStandorteNamesWrong <- function(standorte_import_new_sf){
     missing_names <- namesDB[!is.element(namesDB, namesSF)]
 
     wrong_names_df <- dplyr::tibble("alt" = falsche_names,
-                  korrigiert = NA)
+                  korrigiert = "")
 
     if(length(missing_names) > 0){
       wrong_names_df <- wrong_names_df %>%

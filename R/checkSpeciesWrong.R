@@ -24,7 +24,7 @@ checkSpeciesWrong <- function(importTables_list, speciesDB_vector){
     falsche_tierarten_df <- falsche_tierarten_df %>%
     dplyr::mutate(vorschlag = sapply(alt, function(wrong_term) speciesDB_vector[agrep(pattern = wrong_term, x = speciesDB_vector)][1])) %>%
       dplyr::mutate(vorschlag = ifelse(is.na(vorschlag), "Kein ähnlicher\nEintrag in DB!", vorschlag)) %>%
-      dplyr::mutate(korrigiert = NA)
+      dplyr::mutate(korrigiert = "")
 
   }
 

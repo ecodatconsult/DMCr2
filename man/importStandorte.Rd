@@ -7,11 +7,11 @@
 importStandorte(file_path, project, target_crs = 25832)
 }
 \arguments{
+\item{file_path}{character, Pfad zu den lokalen Geodaten}
+
 \item{project}{character, Projektbezeichnung der importierten Standorte}
 
 \item{target_crs}{numeric, EPSG-Nummer der Koordinatenreferenzsystems (CRS)}
-
-\item{type}{character, bestimmt welche Information abgefragt werden soll}
 }
 \value{
 list, Liste mit neu importierte Standorten, Standorten mit der gegebenen Projektbezeichnung in der Datenbank (fotofallen.fotofallen_standorte) und alle Standorten im Importbereich der Datenbank (import.fotofallen_standorte)

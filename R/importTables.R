@@ -19,7 +19,7 @@ importTables <- function(file_path, data = c("daten", "ereignis")) {
   # guess potential ereignis and daten files
   potential_files_df <- data.frame(
     path = paste0(
-      rep(all_dirs, each = 2),
+      rep(all_dirs, each = length(data)),
       paste0(
         .Platform$file.sep,
         "_",
@@ -31,8 +31,8 @@ importTables <- function(file_path, data = c("daten", "ereignis")) {
   # check if these files actually exist and filter
   files_df <-
   potential_files_df %>%
-    dplyr::mutate(dir_id = rep(seq(dplyr::n()/2), each = 2)) %>%
-    dplyr::mutate(data_type = rep(data, dplyr::n()/2)) %>%
+    dplyr::mutate(dir_id = rep(seq(dplyr::n()/length(data)), each = length(data))) %>%
+    dplyr::mutate(data_type = rep(data, dplyr::n()/length(data))) %>%
     dplyr::mutate(file_exists = file.exists(path)) %>%
     dplyr::filter(file_exists)
 
@@ -43,7 +43,7 @@ importTables <- function(file_path, data = c("daten", "ereignis")) {
     dplyr::summarise(count = dplyr::n())
 
   # if not - throw error
-  if(!all(files_per_dir$count == 2)){
+  if(!all(files_per_dir$count == length(data))){
     stop(paste0("Daten or Ereignis.csv missing in ", paste(dirname(files_df[files_df$dir_id %in% files_per_dir$dir_id, "path"]), collapse = ", ")))
   }
 
