@@ -53,12 +53,12 @@ importTables <- function(file_path, data = c("daten", "ereignis")) {
     filenames <- files_df$path[files_df$data_type == i]
     if(length(filenames) >0){
 
-      #load the files and bind them together
+            #load the files and bind them together
       table <-
         do.call(rbind,
                 c(lapply(filenames,
                          function(x) {
-                           d <- data.table::fread(x, encoding = "UTF-8")
+                           d <- data.table::fread(x, encoding = "Latin-1") #strangely UTF-8 does not work!
                            d <- cbind(d,
                                       "standort_id_folder" = basename(dirname(x)),
                                       "folder" = dirname(x))
