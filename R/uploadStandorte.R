@@ -1,11 +1,12 @@
 #' Standorte der Session werden in die FVA-Fotofallendatenbank (fotofallen.fotofallen_standorte_import) hochgeladen (PostgreSQL)
 #'
 #' @param upload_sf simple feature Objekt, Fotofallenstandorte mit korrigierten bzw. überprüften Spaltenbezeichnungen
+#' @param db_table character, Zieltabelle im Schema fotofallen (entweder "fotofallen_standorte" oder "fotofallen_standorte_import")
 #' @return character, Nachricht über den Verlauf des Uploads
 #' @export
 #'
 
-uploadStandorte <- function(upload_sf){
+uploadStandorte <- function(upload_sf, db_table = "fotofallen_standorte"){
 
   con <- dbConnection()
 
@@ -18,13 +19,13 @@ uploadStandorte <- function(upload_sf){
     out <- "Alle Standorte sind bereits in der Datenbank (fotofallen.fotofallen_standorte oder fotofallen.fotofallen_standorte_import). Es erfolgt kein Upload!"
   }else{
     upload_sf %>%
-      dplyr::relocate(getInfoDB(type = "column_name", schema = "fotofallen", table = "fotofallen_standorte_import") %>% as.vector(), names(upload_sf)) %>%
+      dplyr::relocate(getInfoDB(type = "column_name", schema = "fotofallen", table = db_table) %>% as.vector(), names(upload_sf)) %>%
       dplyr::filter(!standort_id %in% standort_ids_in_DB) %>%
       dplyr::mutate(bilderordner = NA,
                     standort_id_org = NA,
                     sichtfeld_entfernung = NA) %>% #TODO: clarify purpose
       sf::st_write(dsn = con,
-                   layer = c("fotofallen", "fotofallen_standorte_import"), #TODO make sure this goes to fotofallen.fotofallen_standorte_import and not (as previously stated) to import.fotofallen_standorte_import
+                   layer = c("fotofallen", db_table),
                    delete_layer = FALSE,
                    append = TRUE)
     out <- "Erfolgreich hochgeladen!"
